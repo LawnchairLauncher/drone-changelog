@@ -1,7 +1,5 @@
 #!/bin/bash
-
-# Whatever the fuck this was needed
-# MERGE_PREFIX="Merge pull request"
+MERGE_PREFIX="Merge pull request"
 
 if [ -z "$PLUGIN_OUTPUT" ]; then
     PLUGIN_OUTPUT="changelog.txt"
@@ -19,5 +17,5 @@ do
   echo "- ${line}" >> $PLUGIN_OUTPUT
 done
 
-# Print out Changelog
+# Print out changelog
 cat $PLUGIN_OUTPUT
