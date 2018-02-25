@@ -12,7 +12,7 @@ GIT_COMMIT_LOG="$(git log --format='%s (by %cn)' $GIT_COMMIT_RANGE)"
 # Check if log isn't empty, otherwise exit
 if [ -z "$GIT_COMMIT_LOG" ]
 then
-    echo "No changelog found!" > $PLUGIN_OUTPUT
+    echo "No changelog found!" | tee $PLUGIN_OUTPUT
     exit
 fi
 
