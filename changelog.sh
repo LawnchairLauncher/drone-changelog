@@ -1,6 +1,10 @@
 #!/bin/bash
 MERGE_PREFIX="Merge pull request"
 
+if [ -z "$MAJOR_MINOR" ]; then
+    MAJOR_MINOR="alpha"
+fi
+
 if [ -z "$PLUGIN_OUTPUT" ]; then
     PLUGIN_OUTPUT="changelog.txt"
 fi
