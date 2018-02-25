@@ -1,10 +1,6 @@
 #!/bin/bash
 MERGE_PREFIX="Merge pull request"
 
-if [ -z "$MAJOR_MINOR" ]; then
-    MAJOR_MINOR="alpha"
-fi
-
 if [ -z "$PLUGIN_OUTPUT" ]; then
     PLUGIN_OUTPUT="changelog.txt"
 fi
@@ -16,16 +12,15 @@ GIT_COMMIT_LOG="$(git log --format='%s (by %cn)' $GIT_COMMIT_RANGE)"
 # Check if log isn't empty, otherwise exit
 if [ -z "$GIT_COMMIT_LOG" ]
 then
-    echo "No changelog found!"
+    echo "No changelog found!" > $PLUGIN_OUTPUT
     exit
 fi
 
 # Parse log and output generated changelog to output file
-echo "<b>Changelog for build ${MAJOR_MINOR}-${DRONE_BUILD_NUMBER}</b>${NEWLINE}" > $PLUGIN_OUTPUT
-
+touch $PLUGIN_OUTPUT
 printf '%s\n' "$GIT_COMMIT_LOG" | while IFS= read -r line
 do
-  echo "- ${line}" >> $PLUGIN_OUTPUT
+    echo "- ${line}" >> $PLUGIN_OUTPUT
 done
 
 # Print out changelog
