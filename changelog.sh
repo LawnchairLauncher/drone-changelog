@@ -1,5 +1,8 @@
 #!/bin/bash
-MERGE_PREFIX="Merge pull request"
+
+if [ -z "$MAJOR_MINOR" ]; then
+    MAJOR_MINOR="alpha"
+fi
 
 if [ -z "$PLUGIN_OUTPUT" ]; then
     PLUGIN_OUTPUT="changelog.txt"
@@ -24,4 +27,5 @@ do
 done
 
 # Print out changelog
+echo "Changelog for build ${MAJOR_MINOR}-${DRONE_BUILD_NUMBER}"
 cat $PLUGIN_OUTPUT
