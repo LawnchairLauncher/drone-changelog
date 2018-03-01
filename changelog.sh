@@ -29,4 +29,3 @@ done
 # Print out changelog
 echo "Changelog for build ${MAJOR_MINOR}-${DRONE_BUILD_NUMBER}"
 cat $PLUGIN_OUTPUT
-echo -e "\nView on GitHub: ${DRONE_REPO_LINK}/compare/${DRONE_PREV_COMMIT_SHA}..${DRONE_COMMIT_SHA}"
