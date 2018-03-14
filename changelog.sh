@@ -8,17 +8,17 @@ if [ -z "$PLUGIN_OUTPUT" ]; then
     PLUGIN_OUTPUT="changelog.txt"
 fi
 
-if [ -z "$DRONE_CACHE" ]; then
-    DRONE_CACHE="/cache/$DRONE_REPO_OWNER/$DRONE_REPO_NAME"
+if [ -z "$PLUGIN_CACHE" ]; then
+    PLUGIN_CACHE="/cache/$DRONE_REPO_OWNER/$DRONE_REPO_NAME/$DRONE_REPO_BRANCH"
 fi
 
 # Check cache for previous commit hash
-LAST_COMMIT="$DRONE_CACHE/.last_commit"
+LAST_COMMIT="$PLUGIN_CACHE/.last_commit"
 if [ -f "$LAST_COMMIT" ]; then
     DRONE_PREV_COMMIT_SHA="$(cat $LAST_COMMIT)"
 else
-    mkdir -p $DRONE_CACHE
-    echo $DRONE_PREV_COMMIT_SHA > $LAST_COMMIT
+    mkdir -p $PLUGIN_CACHE
+    echo $DRONE_COMMIT_SHA > $LAST_COMMIT
 fi
 
 # Set commit range for git log, from previous commit to latest
@@ -43,5 +43,5 @@ done
 echo "Changelog for build ${MAJOR_MINOR}-${DRONE_BUILD_NUMBER}"
 cat $PLUGIN_OUTPUT
 
-# Save current commit hash to cache
-echo $DRONE_COMMIT_SHA > $LAST_COMMIT
+# Save current commit hash to cache and working directory
+echo $DRONE_COMMIT_SHA | tee $LAST_COMMIT .last_commit >/dev/null
