@@ -9,17 +9,16 @@ if [ -z "$PLUGIN_OUTPUT" ]; then
 fi
 
 if [ -z "$DRONE_CACHE" ]; then
-  DRONE_CACHE="/cache/$DRONE_REPO_OWNER/$DRONE_REPO_NAME"
+    DRONE_CACHE="/cache/$DRONE_REPO_OWNER/$DRONE_REPO_NAME"
 fi
 
 # Check cache for previous commit hash
 LAST_COMMIT="$DRONE_CACHE/.last_commit"
-
 if [ -f "$LAST_COMMIT" ]; then
-  DRONE_PREV_COMMIT_SHA="$(cat $LAST_COMMIT)"
+    DRONE_PREV_COMMIT_SHA="$(cat $LAST_COMMIT)"
 else
-  mkdir -p $DRONE_CACHE
-  echo $DRONE_COMMIT_SHA > $LAST_COMMIT
+    mkdir -p $DRONE_CACHE
+    echo $DRONE_PREV_COMMIT_SHA > $LAST_COMMIT
 fi
 
 # Set commit range for git log, from previous commit to latest
