@@ -21,6 +21,9 @@ else
     echo $DRONE_COMMIT_SHA > $LAST_COMMIT
 fi
 
+# Put local copy of last commit in working directory
+echo $DRONE_PREV_COMMIT_SHA > .last_commit
+
 # Set commit range for git log, from previous commit to latest
 GIT_COMMIT_RANGE="$DRONE_PREV_COMMIT_SHA..$DRONE_COMMIT_SHA"
 GIT_COMMIT_LOG="$(git log --format='%s (by %cn)' $GIT_COMMIT_RANGE)"
@@ -43,5 +46,5 @@ done
 echo "Changelog for build ${MAJOR_MINOR}-${DRONE_BUILD_NUMBER}"
 cat $PLUGIN_OUTPUT
 
-# Save current commit hash to cache and working directory
-echo $DRONE_COMMIT_SHA | tee $LAST_COMMIT .last_commit >/dev/null
+# Save current commit hash to cache
+echo $DRONE_COMMIT_SHA > $LAST_COMMIT
