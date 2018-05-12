@@ -32,13 +32,13 @@ GIT_COMMIT_LOG="$(git log --format='%s (by %cn)' $GIT_COMMIT_RANGE)"
 if [ -z "$GIT_COMMIT_LOG" ]
 then
     # Overwrite cached commit sha if tag is in commit message
-    if [[ $DRONE_COMMIT_MESSAGE == *"[NO CACHE]"* ]]; then
-        echo "Found [NO CACHE] in commit message, skipping cache restore and rebuild!"
+    if [[ $DRONE_COMMIT_MESSAGE == *"[no cache]"* ]]; then
+        echo "Found [no cache] in commit message, skipping cache restore and rebuild!"
         echo $DRONE_COMMIT_SHA > $LAST_COMMIT
     fi
 
-    # Exit here and return a empty changelog
-    echo "No changelog found!" | tee $PLUGIN_OUTPUT
+    # Save commit message to changelog
+    echo $DRONE_COMMIT_MESSAGE | tee $PLUGIN_OUTPUT
     exit
 fi
 
