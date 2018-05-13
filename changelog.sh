@@ -28,11 +28,13 @@ echo $DRONE_PREV_COMMIT_SHA > .last_commit
 GIT_COMMIT_RANGE="$DRONE_PREV_COMMIT_SHA..$DRONE_COMMIT_SHA"
 GIT_COMMIT_LOG="$(git log --format='%s (by %cn)' $GIT_COMMIT_RANGE)"
 
-# Check if log isn't empty, otherwise exit
+# Check if log isn't empty, otherwise rebuild cache and exit
 if [ -z "$GIT_COMMIT_LOG" ]
 then
+    echo "No changelog found, skipping cache restore and rebuild!"
+
     # Save commit message to changelog and overwrite cache
-    echo "- ${DRONE_COMMIT_MESSAGE}" | tee $PLUGIN_OUTPUT
+    echo "- ${DRONE_COMMIT_MESSAGE}" > $PLUGIN_OUTPUT
     echo $DRONE_COMMIT_SHA > $LAST_COMMIT
 
     # Let other plugins/scripts know that this is a clean build
