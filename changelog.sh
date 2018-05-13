@@ -31,15 +31,13 @@ GIT_COMMIT_LOG="$(git log --format='%s (by %cn)' $GIT_COMMIT_RANGE)"
 # Check if log isn't empty, otherwise exit
 if [ -z "$GIT_COMMIT_LOG" ]
 then
-    # Overwrite cached commit sha if tag is in commit message
-    if [[ $DRONE_COMMIT_MESSAGE == *"[no cache]"* ]]; then
-        echo "Found [no cache] in commit message, skipping cache restore and rebuild!"
-        echo $DRONE_COMMIT_SHA > $LAST_COMMIT
-    fi
+    # Save commit message to changelog and overwrite cache
+    echo "- ${DRONE_COMMIT_MESSAGE}" | tee $PLUGIN_OUTPUT
+    echo $DRONE_COMMIT_SHA > $LAST_COMMIT
 
-    # Save commit message to changelog
-    echo $DRONE_COMMIT_MESSAGE | tee $PLUGIN_OUTPUT
-    exit
+    # Let other plugins/scripts know that this is a clean build
+    touch .clean
+    exit 0
 fi
 
 # Parse log and output generated changelog to output file
