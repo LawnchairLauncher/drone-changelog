@@ -34,7 +34,7 @@ then
     echo "No changelog found, skipping cache restore and rebuild!"
 
     # Save commit message to changelog and overwrite cache
-    echo "- ${DRONE_COMMIT_MESSAGE}" > $PLUGIN_OUTPUT
+    echo $DRONE_COMMIT_MESSAGE > $PLUGIN_OUTPUT
     echo $DRONE_COMMIT_SHA > $LAST_COMMIT
 
     # Let other plugins/scripts know that this is a clean build
