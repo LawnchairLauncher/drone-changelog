@@ -50,7 +50,7 @@ do
 done
 
 # Print out changelog
-echo "Changelog for build ${MAJOR_MINOR}-${DRONE_BUILD_NUMBER}"
+echo "Changelog for build ${MAJOR_MINOR}-${DRONE_BUILD_NUMBER}:"
 cat $PLUGIN_OUTPUT
 
 # Save current commit hash to cache
