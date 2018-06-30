@@ -9,7 +9,7 @@ if [ -z "$PLUGIN_OUTPUT" ]; then
 fi
 
 if [ -z "$PLUGIN_CACHE" ]; then
-    PLUGIN_CACHE="/cache/$DRONE_REPO_OWNER/$DRONE_REPO_NAME/$DRONE_REPO_BRANCH"
+    PLUGIN_CACHE="/cache/$DRONE_REPO_OWNER/$DRONE_REPO_NAME/$DRONE_BRANCH"
 fi
 
 # Check cache for previous commit hash
