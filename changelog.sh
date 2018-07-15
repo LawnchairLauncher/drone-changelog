@@ -26,7 +26,7 @@ echo $DRONE_PREV_COMMIT_SHA > .last_commit
 
 # Set commit range for git log, from previous commit to latest
 GIT_COMMIT_RANGE="$DRONE_PREV_COMMIT_SHA..$DRONE_COMMIT_SHA"
-GIT_COMMIT_LOG="$(git log --format='%s (by %cn)' $GIT_COMMIT_RANGE)"
+GIT_COMMIT_LOG="$(git log --format='%s (by %an)' $GIT_COMMIT_RANGE)"
 
 # Check if log isn't empty, otherwise rebuild cache and exit
 if [ -z "$GIT_COMMIT_LOG" ]
