@@ -24,6 +24,9 @@ fi
 # Put local copy of last commit in working directory
 echo $DRONE_PREV_COMMIT_SHA > .last_commit
 
+# Trim changelog to first line
+DRONE_COMMIT_MESSAGE="$(echo "${DRONE_COMMIT_MESSAGE}" | head -1)"
+
 # Set commit range for git log, from previous commit to latest
 GIT_COMMIT_RANGE="$DRONE_PREV_COMMIT_SHA..$DRONE_COMMIT_SHA"
 GIT_COMMIT_LOG="$(git log --format='%s (by %an)' $GIT_COMMIT_RANGE)"
